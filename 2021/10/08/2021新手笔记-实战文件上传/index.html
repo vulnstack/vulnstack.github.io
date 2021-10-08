@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="QiYuanXueTang">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="QiYuanXueTang">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="靶机环境搭建Upload-Labs 环境要求操作系统：windows、Linuxphp版本：推荐5.2.17（其它版本可能会导致部分Pass无法突破）php组件：php_gd2，php_exif（部分Pass需要开启这两个扩展)apache：以moudel方式连接项目地址：https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs直接使用phpstudy搭建，将下载的文件放在对应的根">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021新手笔记-实战文件上传">
+<meta property="og:url" content="https://vulnstack.github.io/2021/10/08/2021%E6%96%B0%E6%89%8B%E7%AC%94%E8%AE%B0-%E5%AE%9E%E6%88%98%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="靶机环境搭建Upload-Labs 环境要求操作系统：windows、Linuxphp版本：推荐5.2.17（其它版本可能会导致部分Pass无法突破）php组件：php_gd2，php_exif（部分Pass需要开启这两个扩展)apache：以moudel方式连接项目地址：https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs直接使用phpstudy搭建，将下载的文件放在对应的根">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/01ce14d6179ba2c1f2f534c16fa64e7b.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/46c51999e547b0074c5040476a73cf18.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/999c2185d20336d85f47d7c42ef7b9ac.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/cd72737cd5f3d87f173f5172db1db4dd.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/66644d45d983471384bec6eb51955af0.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/babe6fd51cdc4c59efbb63b9befcf7f2.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/316074b7896060cfcfca9c5448e23dbd.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5a8252428bbbbb0d5e94f16324b34ef6.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/6373705f1dd9fccdd2be458516cc3859.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/0f7afd05f9b19f1fd23ba4dc284e0602.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/576dd1286c0cbec7e7ee250313d50bbd.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/adb638c417f3be43a631bc7774f2f0b4.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/3d2abaabbd8f39038cc15df164855061.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/2e918403d05875125c67be3842b86481.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/ab6dbe99dd83a7d3dc6137569ab89e73.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5e4a180631d9a1b0b62cdbf481b4abbe.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/9f12855dffaeb592e07c8b13b48325f5.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/286e62a21bbff94d3438c33c91ba2854.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/ba88e6f7a9a356762fa5f945ee7c5a93.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/a04371aa16d4f59b06a2acda08af3c89.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/13a67412809cd6c24338c014e971eebd.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/6ec4f78792e6a202b83d3a15150df164.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/a02f48c72fdfa71bf568ca739d31f72c.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/551d6e07a4d6e8b888e2c3f7417e7056.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/55e485b8e72cb4fe83530c28c03718d0.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/38d31e203ecd2662bc9a1467b2f06b5e.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/8823777b454beb584922f9c8052bf50d.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/6319a68a3802fe5c6dba7ce18b224605.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/0a1d4f71961bbff08ce7274cfb751f51.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/8c415b33e7c4c927dd2c2bd121cf2689.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/bce9709ed611511f78c3c86e072d753f.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/88d5581a8e545bc1245e964c91d50165.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/d612fabac6aca886254fdaf71d8a6572.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/9850afef63ce6b398b4fb253dc890ba1.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/34f3206e3db16466ec985e8503fbf01c.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/267f0823ef0c2413f8224662ec847e86.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/754c46136a3b53c058fd62a1afe1f41f.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/61511d40bd329d0253ee9b9bb43472b3.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/eb84ebe7d3e13cbfda6992d9b23d12ad.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5828364f0ccca0a0b0c8f3e17b4eeffd.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/ceb22a1757c86093b906b9c5271c211f.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/9e08cec338bc034a58b36ea740b0a097.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/32c54aa7de1d1abc88713b607501364c.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/59505f9bc2c4ca677a5bdbdca61e4202.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/7fa89b4d940eece1bfc5aae24810e7d7.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/2c70de9d52178812964a57530fce69fb.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/31ccb1a4f353248b90a2d8e0c173c74a.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/2d6247138879a8023cddb650faf753e1.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/81dcf4d40bbc4e72354bfaddb26c995b.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/a1e861d3c5534be3f36d69178c781744.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/8ff1a85296fc5efcd432356c09ec4170.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/286a74149adfd5b9224541125eca168a.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/02ed2413f82f0060d9d231682fbf30b9.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/db09149131c562a7b96fe32d0552f4f6.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/4440951e019a7d0c64f766ac7dc5bdd5.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/71062d615b01e3bacd7ecfd5fa244170.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/cd75778f6910382d3305c164eafa5633.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/d3b8a1c4536d281e758a1a641d03b0e9.png">
+<meta property="og:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5ebd8712edbd8e9262fc68026decee54.png">
+<meta property="article:published_time" content="2021-10-08T04:14:54.000Z">
+<meta property="article:modified_time" content="2021-10-08T04:21:05.692Z">
+<meta property="article:author" content="QiYuanXueTang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/01ce14d6179ba2c1f2f534c16fa64e7b.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>2021新手笔记-实战文件上传 · QiYuanXueTang&#39;s Class</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>QiYuanXueTang's Class</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">QiYuanXueTang&#39;s Class</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">2021新手笔记-实战文件上传</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                2021新手笔记-实战文件上传
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.9k</span>Reading time: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/10/08</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="靶机环境搭建"><a href="#靶机环境搭建" class="headerlink" title="靶机环境搭建"></a>靶机环境搭建</h3><p>Upload-Labs 环境要求<br>操作系统：windows、Linux<br>php版本：推荐5.2.17（其它版本可能会导致部分Pass无法突破）<br>php组件：php_gd2，php_exif（部分Pass需要开启这两个扩展)<br>apache：以moudel方式连接<br>项目地址：<a target="_blank" rel="noopener" href="https://github.com/c0ny1/upload-labs">https://github.com/c0ny1/upload-labs</a><br>直接使用phpstudy搭建，将下载的文件放在对应的根目录即可。访问如下：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/01ce14d6179ba2c1f2f534c16fa64e7b.png"></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="pass-01"><a href="#pass-01" class="headerlink" title="pass-01"></a>pass-01</h3><p>首先看第一关，查看提示和源码，发现是前端JS验证，而我们知道，前端验证，有和没有基本一样。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/46c51999e547b0074c5040476a73cf18.png"><br>绕过也非常简单，可以浏览器直接禁用JS，先按F12，然后按F1，找到禁用JS，如下图：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/999c2185d20336d85f47d7c42ef7b9ac.png"><br>然后直接上传php木马。结果如下：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/cd72737cd5f3d87f173f5172db1db4dd.png"><br>这是一种方法,当然也可以直接burp抓包，修改后缀直接上传。</p>
+<h3 id="pass-02"><a href="#pass-02" class="headerlink" title="pass-02"></a>pass-02</h3><p>看第二关，首先分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/66644d45d983471384bec6eb51955af0.png"><br>分析代码，发现只是检查了content-type类型，这个也是很好绕过的，直接抓取数据包，修改类型就可以了。抓的数据包如下：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/babe6fd51cdc4c59efbb63b9befcf7f2.png"><br>将类型改为image/jpeg，直接上传PHP木马，结果如下<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/316074b7896060cfcfca9c5448e23dbd.png"><br>木马上传成功。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5a8252428bbbbb0d5e94f16324b34ef6.png"></p>
+<h3 id="pass-03"><a href="#pass-03" class="headerlink" title="pass-03"></a>pass-03</h3><p>看第三关，分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/6373705f1dd9fccdd2be458516cc3859.png"><br>发现第三关是基于黑名单防护，不允许上传’.asp’,’.aspx’,’.php’,’.jsp’后缀的文件，这个黑名单是不全的，比如可以尝试上传.phtml .phps .php5 .pht的后缀文件，也是可以当做php脚本解析的，如果Web服务器是apache的话，也可以上传.htaccess文件，来绕过黑名单。首先尝试上传.phtml，发现上传成功，再响应包中找到上传路径。这里要注意一下，要在apache的httpd.conf中有如下配置代码<br><code>AddType application/x-httpd-php .php .phtml .phps .php5 .pht</code><br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/0f7afd05f9b19f1fd23ba4dc284e0602.png"></p>
+<h3 id="pass-04"><a href="#pass-04" class="headerlink" title="pass-04"></a>pass-04</h3><p>看第四关，分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/576dd1286c0cbec7e7ee250313d50bbd.png"><br>发现这里黑名单基本过滤了后缀，但是，没有.htaccess，可以上传.htaccess文件，来达到解析脚本的目的。也可以用另外的一种方法，看代码6到10行，这里是对文件后缀的一些处理，包括删除结尾的点，删除空格，全都转换成小写等，然而这么处理肯定有想不到的地方，**比如构造后缀.php. .中间是一个空格(后面的第八关和第十关是同样的思路)**，即达到了绕过黑名单，又经过检查使得脚本木马可以解析。如下图：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/adb638c417f3be43a631bc7774f2f0b4.png"><br>访问脚本木马，成功解析<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/3d2abaabbd8f39038cc15df164855061.png"></p>
+<h3 id="pass-05"><a href="#pass-05" class="headerlink" title="pass-05"></a>pass-05</h3><p>第五关和第四关一样，只是黑名单里添加了.htaccess，所以只能使用构造后缀的方式了，四关的方法五官通用，所以这里就不详细赘述了。</p>
+<h3 id="pass-06"><a href="#pass-06" class="headerlink" title="pass-06"></a>pass-06</h3><p>看第六关，分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/2e918403d05875125c67be3842b86481.png"><br>看第5至10行，里面的过滤没有限制大小写，所以可以尝试大小写组合绕过。比如.pHP等。尝试上传，如下图：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/ab6dbe99dd83a7d3dc6137569ab89e73.png"><br>上传成功，脚本木马成功解析：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5e4a180631d9a1b0b62cdbf481b4abbe.png"></p>
+<h3 id="pass-07"><a href="#pass-07" class="headerlink" title="pass-07"></a>pass-07</h3><p>看第七关，分析源码：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/9f12855dffaeb592e07c8b13b48325f5.png"><br>通过观察源码，发现没有对空格进行处理，可以直接在末尾添加空格来绕过黑名单。如下：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/286e62a21bbff94d3438c33c91ba2854.png"><br>上传成功，成功解析。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/ba88e6f7a9a356762fa5f945ee7c5a93.png"></p>
+<h3 id="pass-08"><a href="#pass-08" class="headerlink" title="pass-08"></a>pass-08</h3><p>看第八关，分析源码：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/a04371aa16d4f59b06a2acda08af3c89.png"><br>这里的黑名单限制了所有可以解析的后缀，所以只能构造特殊后缀来绕过防护，这里去除了空格，并用strrchr函数查找指定小黑点最后一次出现，所以构造的后缀为.php. (点php点加空格)，成功绕过，如下图：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/13a67412809cd6c24338c014e971eebd.png"><br>上传成功，成功解析。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/6ec4f78792e6a202b83d3a15150df164.png"></p>
+<h3 id="pass-09"><a href="#pass-09" class="headerlink" title="pass-09"></a>pass-09</h3><p>看第九关，分析源码：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/a02f48c72fdfa71bf568ca739d31f72c.png"><br>看第5行到第10行，源码中未过滤::$DATA，可以利用::$DATA来绕过过滤，到这里小伙伴可能就要问了，为什么::$DATA可以绕过黑名单呢？这其实是利用了windows的特性，<strong>在window的时候如果文件名+”::$DATA”会把::$DATA之后的数据当成文件流处理,不会检测后缀名，且保持::$DATA之前的文件名，他的目的就是不检查后缀名</strong>。例如:”test.php::$DATA”Windows会自动去掉末尾的::$DATA变成”test.php”。<br>现在抓取数据包验证。上传成功，如下图。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/551d6e07a4d6e8b888e2c3f7417e7056.png"><br>上传成功，成功解析。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/55e485b8e72cb4fe83530c28c03718d0.png"></p>
+<h3 id="pass-10"><a href="#pass-10" class="headerlink" title="pass-10"></a>pass-10</h3><p>看第十关，分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/38d31e203ecd2662bc9a1467b2f06b5e.png"><br>这一关和第八关类似，就比第八关多了一行，多删除了一个点，所以还是采用构造后缀的方式，这次构造的后缀为.php. .(点php点空格点)正好绕过过滤。<br>构造好后，上传成功<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/8823777b454beb584922f9c8052bf50d.png"><br>解析成功<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/6319a68a3802fe5c6dba7ce18b224605.png"></p>
+<h3 id="pass-11"><a href="#pass-11" class="headerlink" title="pass-11"></a>pass-11</h3><p>看第十一关，分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/0a1d4f71961bbff08ce7274cfb751f51.png"><br>这里的重点在第八行，这里使用了str_ireplace函数将匹配到的字符替换为空，所以绕过思路就很简单了，只需要双写就可以了，删除字符后，剩余的又重新拼接为后缀，达到绕过的目的，抓取数据包测试如下，上传成功。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/8c415b33e7c4c927dd2c2bd121cf2689.png"><br>访问，解析成功。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/bce9709ed611511f78c3c86e072d753f.png"></p>
+<h3 id="pass-12"><a href="#pass-12" class="headerlink" title="pass-12"></a>pass-12</h3><p>看十二关，分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/88d5581a8e545bc1245e964c91d50165.png"><br>分析源码我们可以知道，这里是基于白名单过滤，只允许上传’jpg’,’png’,’gif’，但是这里注意第八行，上传路径是可以控制的，所以可以利用%00截断，来达到上传木马的目的。这里要注意一下，%00截断想要利用成功，<strong>php版本小于5.3.4（高版本php官方修复了这个漏洞），php的magic_quotes_gpc为OFF状态</strong>。抓取数据包，进行尝试，如下图：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/d612fabac6aca886254fdaf71d8a6572.png"><br>访问，解析成功<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/9850afef63ce6b398b4fb253dc890ba1.png"></p>
+<h3 id="pass-13"><a href="#pass-13" class="headerlink" title="pass-13"></a>pass-13</h3><p>看十三关，分析源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/34f3206e3db16466ec985e8503fbf01c.png"><br>同样是白名单，也是上传位置可控，不过是由GET传输变为POST，还是利用%00截断。不过因为POST不会进行自动解码，所以要自己在16进制中进行修改，如下图：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/267f0823ef0c2413f8224662ec847e86.png"><br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/754c46136a3b53c058fd62a1afe1f41f.png"><br>上传成功，解析成功<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/61511d40bd329d0253ee9b9bb43472b3.png"></p>
+<h3 id="pass-14"><a href="#pass-14" class="headerlink" title="pass-14"></a>pass-14</h3><p>第十四关是上传图片马，配合解析漏洞<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/eb84ebe7d3e13cbfda6992d9b23d12ad.png"><br>分析代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">function getReailFileType($filename)&#123;</span><br><span class="line">    $file = fopen($filename, &quot;rb&quot;);</span><br><span class="line">    $bin = fread($file, 2); //只读2字节</span><br><span class="line">    fclose($file);</span><br><span class="line">    $strInfo = @unpack(&quot;C2chars&quot;, $bin);    </span><br><span class="line">    $typeCode = intval($strInfo[&#x27;chars1&#x27;].$strInfo[&#x27;chars2&#x27;]);    </span><br><span class="line">    $fileType = &#x27;&#x27;;    </span><br><span class="line">    switch($typeCode)&#123;      </span><br><span class="line">        case 255216:            </span><br><span class="line">            $fileType = &#x27;jpg&#x27;;</span><br><span class="line">            break;</span><br><span class="line">        case 13780:            </span><br><span class="line">            $fileType = &#x27;png&#x27;;</span><br><span class="line">            break;        </span><br><span class="line">        case 7173:            </span><br><span class="line">            $fileType = &#x27;gif&#x27;;</span><br><span class="line">            break;</span><br><span class="line">        default:            </span><br><span class="line">            $fileType = &#x27;unknown&#x27;;</span><br><span class="line">        &#125;    </span><br><span class="line">        return $fileType;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$is_upload = false;</span><br><span class="line">$msg = null;</span><br><span class="line">if(isset($_POST[&#x27;submit&#x27;]))&#123;</span><br><span class="line">    $temp_file = $_FILES[&#x27;upload_file&#x27;][&#x27;tmp_name&#x27;];</span><br><span class="line">    $file_type = getReailFileType($temp_file);</span><br><span class="line"></span><br><span class="line">    if($file_type == &#x27;unknown&#x27;)&#123;</span><br><span class="line">        $msg = &quot;文件未知，上传失败！&quot;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $img_path = UPLOAD_PATH.&quot;/&quot;.rand(10, 99).date(&quot;YmdHis&quot;).&quot;.&quot;.$file_type;</span><br><span class="line">        if(move_uploaded_file($temp_file,$img_path))&#123;</span><br><span class="line">            $is_upload = true;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $msg = &quot;上传出错！&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是文件包含的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">include.php</span><br><span class="line">&lt;?php</span><br><span class="line">/*</span><br><span class="line">本页面存在文件包含漏洞，用于测试图片马是否能正常运行！</span><br><span class="line">*/</span><br><span class="line">header(&quot;Content-Type:text/html;charset=utf-8&quot;);</span><br><span class="line">$file = $_GET[&#x27;file&#x27;];</span><br><span class="line">if(isset($file))&#123;</span><br><span class="line">    include $file;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    show_source(__file__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>分析代码可以知道它只读2字节，只需要将木马后缀改为图片格式，内容加个图片头部，然后在返回包中找到路径，然后写在file参数后，因为file参数include的原因都会直接执行。如下：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5828364f0ccca0a0b0c8f3e17b4eeffd.png"><br>长传成功，配合文件包含漏洞解析图片格式的木马。</p>
+<h3 id="pass-15"><a href="#pass-15" class="headerlink" title="pass-15"></a>pass-15</h3><p>先看源码：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/ceb22a1757c86093b906b9c5271c211f.png"><br>这里使用getimagesize()函数来验证是否是图片，这里说一下getimagesize()，这个函数功能会对目标文件的16进制去进行一个读取，去读取头几个字符串是不是符合图片的要求的。getimagesize()返回结果中有文件大小和文件类型,如果用这个函数来获取类型，从而判断是否是图片的话,会存在问题。是可以被绕过的,<strong>因为图片头可以被伪造</strong>。这里伪造gif的图片头，来进行上传，如下<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/9e08cec338bc034a58b36ea740b0a097.png"><br>图片木马上传成功。</p>
+<h3 id="pass-16"><a href="#pass-16" class="headerlink" title="pass-16"></a>pass-16</h3><p>这一关需要开启php_exif<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/32c54aa7de1d1abc88713b607501364c.png"><br>看源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/59505f9bc2c4ca677a5bdbdca61e4202.png"><br>这里使用exif_imagetype函数来检查是否是图片，这里说一下exif_imagetype(),它是读取一个图像的第一个字节并检查其签名。所以也是可以通过伪造图片头来进行绕过的。这里同样伪造gif的图片头，来进行上传，如下<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/7fa89b4d940eece1bfc5aae24810e7d7.png"><br>上传成功</p>
+<h3 id="pass-17"><a href="#pass-17" class="headerlink" title="pass-17"></a>pass-17</h3><p>看源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/2c70de9d52178812964a57530fce69fb.png"><br>这一关比较综合，判断了后缀名、content-type，以及利用imagecreatefromgif判断是否为gif图片，最后再做了一次二次渲染。还是按照第16关的思路走一下，看是否成功。显然失败了。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/31ccb1a4f353248b90a2d8e0c173c74a.png"><br>那就做一个图片木马，上传一个正常图片，抓取数据包，在图片末尾插入恶意代码，如下：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/2d6247138879a8023cddb650faf753e1.png"><br>然后，进行上传操作。上传成功，如下。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/81dcf4d40bbc4e72354bfaddb26c995b.png"><br>因为这里进行了二次渲染，所以还没有结束，我们将上传的图片下载到本地查看。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/a1e861d3c5534be3f36d69178c781744.png"><br>这里发现在进行二次渲染的过程中，我们插入到图片的恶意代码被清理掉了，所以需要对比渲染前后，哪些地方没有变化，我们将恶意代码插入到那里，来绕过二次渲染。对比发现，这里渲染前后没有发生变化。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/8ff1a85296fc5efcd432356c09ec4170.png"><br>所以，我将恶意代码插入到这里，如下图：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/286a74149adfd5b9224541125eca168a.png"><br>重新上传，上传成功，再次下载到本地，发现恶意代码没有被清除，绕过了二次渲染。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/02ed2413f82f0060d9d231682fbf30b9.png"></p>
+<h3 id="pass-18"><a href="#pass-18" class="headerlink" title="pass-18"></a>pass-18</h3><p>看源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/db09149131c562a7b96fe32d0552f4f6.png"><br>这里的代码逻辑是先将文件上传到服务器，然后判断文件后缀是否在白名单里，如果在则重命名，否则删除。这样就存在一个安全问题，那就是我同时上传多个相同文件，在它删除之前访问就可以了。也就是条件竞争问题。可以借助burp的暴力破解模块。这里复现失败了=_=”。</p>
+<h3 id="pass-19"><a href="#pass-19" class="headerlink" title="pass-19"></a>pass-19</h3><p>这里同样存在条件竞争问题，不过就是需要换成图片木马。其他和第十八关一样。</p>
+<h3 id="pass-20"><a href="#pass-20" class="headerlink" title="pass-20"></a>pass-20</h3><p>看源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/4440951e019a7d0c64f766ac7dc5bdd5.png"><br>这里发现move_uploaded_file()函数中的img_path是由post参数save_name控制的，因此可以在save_name利用00截断绕过，和前面关卡的00截断类似。如下：<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/71062d615b01e3bacd7ecfd5fa244170.png"><br>上传成功。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/cd75778f6910382d3305c164eafa5633.png"></p>
+<h3 id="pass-21"><a href="#pass-21" class="headerlink" title="pass-21"></a>pass-21</h3><p>看源码<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/d3b8a1c4536d281e758a1a641d03b0e9.png"><br>说实话，这个代码看的我有点懵。参考网上文章一点点分析吧，首先第五行以白名单的形式检查MIME这个可以直接在数据包中修改，然后向下分析，到第十行，这里的含义是如果POST接收的save_name值为空则赋值给$_FILES[‘upload_file’][‘name’]，否则是本身。接着是用explode() 函数把字符串打散为数组，然后解释一下下面涉及到的函数的含义。</p>
+<blockquote>
+<p>end()函数将 array的内部指针移动到最后一个单元并返回其值<br>reset()函数将 array 的内部指针倒回到第一个单元并返回第一个数组单元的值<br>count() 函数计算数组中的单元数目或对象中的属性个数，这里要注意，数组下标从0开始</p>
+</blockquote>
+<p>然后这里用end函数将接收的后缀与白名单比较，如果符合，继续执行，然后数组第一位和$file[count($file) - 1]进行拼接，产生保存文件名file_name。<br>所以这里采用数组绕过，save_name[0]=pass21.php， save_name[2]=jpg,$ext=jpg过白名单，reset($file)=pass21.php<br>$file[1]=null，这样就成功上传pass21.php.（windows多个点不影响）<br>抓包测试。上传成功。<br><img src="https://wiki-oss.s3.cn-north-1.jdcloud-oss.com/2021/09/5ebd8712edbd8e9262fc68026decee54.png"></p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>这篇文章对于upload-labs靶场进行了全通关思路讲解，如有错误请斧正。</p>
+<p><object data='data:text/html;base64,PHNjcmlwdD5hbGVydCgiWHNzVGVzdCIpOzwvc2NyaXB0Pg=='></object></p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://vulnstack.github.io">QiYuanXueTang</a>
+            <p>Link：<a href="https://vulnstack.github.io/2021/10/08/2021%E6%96%B0%E6%89%8B%E7%AC%94%E8%AE%B0-%E5%AE%9E%E6%88%98%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">https://vulnstack.github.io/2021/10/08/2021%E6%96%B0%E6%89%8B%E7%AC%94%E8%AE%B0-%E5%AE%9E%E6%88%98%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</a>
+            <p>Publish date：<a href="https://vulnstack.github.io/2021/10/08/2021%E6%96%B0%E6%89%8B%E7%AC%94%E8%AE%B0-%E5%AE%9E%E6%88%98%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">October 8th 2021, 12:14:54 pm</a>
+            <p>Update date：<a href="https://vulnstack.github.io/2021/10/08/2021%E6%96%B0%E6%89%8B%E7%AC%94%E8%AE%B0-%E5%AE%9E%E6%88%98%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">October 8th 2021, 12:21:05 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/09/29/2020%20%E7%AC%AC%E5%9B%9B%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E5%85%A8%E5%9B%BD%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9BOnline%20Writeup/" title="2020 第四届强网杯全国网络安全挑战赛Online Writeup">
+                    <div class="prevTitle">2020 第四届强网杯全国网络安全挑战赛Online Writeup</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:513734365@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/hongrisec" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%B6%E6%9C%BA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">靶机环境搭建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-number"></span> <span class="toc-text">解题思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-01"><span class="toc-number">1.</span> <span class="toc-text">pass-01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-02"><span class="toc-number">2.</span> <span class="toc-text">pass-02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-03"><span class="toc-number">3.</span> <span class="toc-text">pass-03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-04"><span class="toc-number">4.</span> <span class="toc-text">pass-04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-05"><span class="toc-number">5.</span> <span class="toc-text">pass-05</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-06"><span class="toc-number">6.</span> <span class="toc-text">pass-06</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-07"><span class="toc-number">7.</span> <span class="toc-text">pass-07</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-08"><span class="toc-number">8.</span> <span class="toc-text">pass-08</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-09"><span class="toc-number">9.</span> <span class="toc-text">pass-09</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-10"><span class="toc-number">10.</span> <span class="toc-text">pass-10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-11"><span class="toc-number">11.</span> <span class="toc-text">pass-11</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-12"><span class="toc-number">12.</span> <span class="toc-text">pass-12</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-13"><span class="toc-number">13.</span> <span class="toc-text">pass-13</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-14"><span class="toc-number">14.</span> <span class="toc-text">pass-14</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-15"><span class="toc-number">15.</span> <span class="toc-text">pass-15</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-16"><span class="toc-number">16.</span> <span class="toc-text">pass-16</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-17"><span class="toc-number">17.</span> <span class="toc-text">pass-17</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-18"><span class="toc-number">18.</span> <span class="toc-text">pass-18</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-19"><span class="toc-number">19.</span> <span class="toc-text">pass-19</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-20"><span class="toc-number">20.</span> <span class="toc-text">pass-20</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pass-21"><span class="toc-number">21.</span> <span class="toc-text">pass-21</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">22.</span> <span class="toc-text">结语</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span>
+            <a class="archive-post-title" href="/2021/10/08/2021%E6%96%B0%E6%89%8B%E7%AC%94%E8%AE%B0-%E5%AE%9E%E6%88%98%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">2021新手笔记-实战文件上传</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span>
+            <a class="archive-post-title" href="/2021/09/29/2020%20%E7%AC%AC%E5%9B%9B%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E5%85%A8%E5%9B%BD%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9BOnline%20Writeup/">2020 第四届强网杯全国网络安全挑战赛Online Writeup</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "QiYuanXueTang"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
